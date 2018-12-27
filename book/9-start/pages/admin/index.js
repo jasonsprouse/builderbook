@@ -8,6 +8,7 @@ import withLayout from '../../lib/withLayout';
 import withAuth from '../../lib/withAuth';
 import { getBookList } from '../../lib/api/admin';
 
+
 const Index = ({ books }) => (
   <div style={{ padding: '10px 45px' }}>
     <div>
@@ -45,6 +46,7 @@ class IndexWithData extends Component {
   async componentDidMount() {
     try {
       const { books } = await getBookList();
+      logger(books); // eslint-disable-line
       this.setState({ books }); // eslint-disable-line
     } catch (err) {
       notify(err);
