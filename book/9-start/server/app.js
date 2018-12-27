@@ -7,10 +7,10 @@ import dotenv from 'dotenv';
 
 import logger from './logs';
 import auth from './google';
-// import api from './api';
+import api from './api';
 
 import { insertTemplates } from './models/EmailTemplate';
-// import Chapter from './models/Chapter';
+//import Chapter from './models/Chapter';
 
 // Refactored from ch.3 to use goole auth
 // import User from './models/User';
@@ -68,7 +68,7 @@ app.prepare().then(async () => {
 
   auth({ server, ROOT_URL });
   // ch.5 Internal API GET books
-  // api(server);
+  api(server);
 
   // server.get('/books/:bookSlug/:chapterSlug', (req, res) => {
   //   const { bookSlug, chapterSlug } = req.params;
