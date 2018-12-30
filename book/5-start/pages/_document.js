@@ -22,10 +22,7 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Muli:300,400:latin"
           />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           <link
             rel="stylesheet"
             href="https://storage.googleapis.com/builderbook/nprogress.min.css"
@@ -83,7 +80,7 @@ class MyDocument extends Document {
 
 MyDocument.getInitialProps = ({ renderPage }) => {
   const pageContext = getContext();
-  const page = renderPage(Component => props => (
+  const page = renderPage((Component) => (props) => (
     <JssProvider
       registry={pageContext.sheetsRegistry}
       generateClassName={pageContext.generateClassName}

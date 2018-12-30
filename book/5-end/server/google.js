@@ -30,14 +30,16 @@ export default function auth({ ROOT_URL, server }) {
       console.log(err); // eslint-disable-line
     }
   };
-  passport.use(new Strategy(
-    {
-      clientID: process.env.Google_clientID,
-      clientSecret: process.env.Google_clientSecret,
-      callbackURL: `${ROOT_URL}/oauth2callback`,
-    },
-    verify,
-  ));
+  passport.use(
+    new Strategy(
+      {
+        clientID: process.env.Google_clientID,
+        clientSecret: process.env.Google_clientSecret,
+        callbackURL: `${ROOT_URL}/oauth2callback`,
+      },
+      verify,
+    ),
+  );
 
   passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -52,10 +54,13 @@ export default function auth({ ROOT_URL, server }) {
   server.use(passport.initialize());
   server.use(passport.session());
 
-  server.get('/auth/google', passport.authenticate('google', {
-    scope: ['profile', 'email'],
-    prompt: 'select_account',
-  }));
+  server.get(
+    '/auth/google',
+    passport.authenticate('google', {
+      scope: ['profile', 'email'],
+      prompt: 'select_account',
+    }),
+  );
 
   server.get(
     '/oauth2callback',

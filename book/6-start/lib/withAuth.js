@@ -6,8 +6,9 @@ let globalUser = null;
 
 export default (
   Page,
-  { loginRequired = true, logoutRequired = false } = {},
-) => class BaseComponent extends React.Component {
+  { loginRequired = true, logoutRequired = false, adminRequired = false } = {},
+) =>
+  class BaseComponent extends React.Component {
     static propTypes = {
       user: PropTypes.shape({
         id: PropTypes.string,
@@ -34,6 +35,10 @@ export default (
 
       if (logoutRequired && user) {
         Router.push('/');
+      }
+
+      if (adminRequired && (!user || !user.isAdmin)) {
+        Router.push('/customer/my-books', '/my-books');
       }
     }
 
@@ -65,6 +70,10 @@ export default (
         return null;
       }
 
+      if (adminRequired && (!user || !user.isAdmin)) {
+        return null;
+      }
+
       return <Page {...this.props} />;
     }
-};
+  };

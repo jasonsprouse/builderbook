@@ -56,9 +56,7 @@ class UserClass {
     return ['id', 'displayName', 'email', 'avatarUrl', 'slug', 'isAdmin', 'isGithubConnected'];
   }
 
-  static async signInOrSignUp({
-    googleId, email, googleToken, displayName, avatarUrl,
-  }) {
+  static async signInOrSignUp({ googleId, email, googleToken, displayName, avatarUrl }) {
     const user = await this.findOne({ googleId }).select(UserClass.publicFields().join(' '));
 
     if (user) {
@@ -101,7 +99,7 @@ class UserClass {
 
     try {
       await sendEmail({
-        from: `Kelly from Builder Book <${process.env.EMAIL_SUPPORT_FROM_ADDRESS}>`,
+        from: `Jason from Good Faith <${process.env.EMAIL_SUPPORT_FROM_ADDRESS}>`,
         to: [email],
         subject: template.subject,
         body: template.message,

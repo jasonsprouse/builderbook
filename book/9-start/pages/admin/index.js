@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-
 import notify from '../../lib/notifier';
 
 import withLayout from '../../lib/withLayout';

@@ -4,6 +4,7 @@ import mongoSessionStore from 'connect-mongo';
 import next from 'next';
 import mongoose from 'mongoose';
 
+// import api from './api';
 import auth from './google';
 
 import logger from './logs';
@@ -26,6 +27,10 @@ mongoose.connect(
 const port = process.env.PORT || 8000;
 const ROOT_URL = `http://localhost:${port}`;
 
+const URL_MAP = {
+  '/login': '/public/login',
+};
+
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
@@ -34,8 +39,8 @@ app.prepare().then(() => {
 
   const MongoStore = mongoSessionStore(session);
   const sess = {
-    name: 'builderbook.sid',
-    secret: 'HD2w.)q*VqRT4/#NK2M/,E^B)}FED5fWU!dKe[wk',
+    name: 'goodfaith.sid',
+    secret: 'Sun8Shines8',
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
       ttl: 14 * 24 * 60 * 60, // save session 14 days
@@ -52,7 +57,15 @@ app.prepare().then(() => {
 
   auth({ server, ROOT_URL });
 
-  server.get('*', (req, res) => handle(req, res));
+  // api(server);
+  server.get('*', (req, res) => {
+    const url = URL_MAP[req.path];
+    if (url) {
+      app.render(req, res, url);
+    } else {
+      handle(req, res);
+    }
+  });
 
   server.listen(port, (err) => {
     if (err) throw err;

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Error from 'next/error';
@@ -66,7 +67,7 @@ class ReadChapter extends React.Component {
 
     return (
       <div>
-        <h3>Chapter: {chapter.title}</h3>
+        <h3>Chapter: {chapter.title} </h3>
 
         <div className="main-content" dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </div>
@@ -105,7 +106,7 @@ class ReadChapter extends React.Component {
               paddingLeft: '25px',
             }}
           >
-            <h2>Book: {book.name}</h2>
+            <h2>Book: {book.name} </h2>
 
             {this.renderMainContent()}
           </Grid>

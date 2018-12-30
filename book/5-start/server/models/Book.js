@@ -15,20 +15,20 @@ const mongoSchema = new Schema({
     required: true,
     unique: true,
   },
-  githubRepo: {
-    type: String,
-    required: true,
-  },
-  githubLastCommitSha: String,
-
   createdAt: {
     type: Date,
     required: true,
+    default: Date.now,
   },
   price: {
     type: Number,
     required: true,
   },
+  githubRepo: {
+    type: String,
+    required: true,
+  },
+  githubLastCommitSha: String,
 });
 
 class BookClass {
@@ -56,15 +56,16 @@ class BookClass {
 
   static async add({ name, price, githubRepo }) {
     const slug = await generateSlug(this, name);
+
     if (!slug) {
       throw new Error(`Error with slug generation for name: ${name}`);
     }
+
     return this.create({
       name,
       slug,
       price,
       githubRepo,
-      createdAt: new Date(),
     });
   }
 
@@ -82,7 +83,11 @@ class BookClass {
       modifier.slug = await generateSlug(this, name);
     }
 
-    return this.updateOne({ _id: id }, { $set: modifier });
+    await this.updateOne({ _id: id }, { $set: modifier });
+
+    const editedBook = await this.findById(id, 'slug');
+
+    return editedBook;
   }
 }
 
