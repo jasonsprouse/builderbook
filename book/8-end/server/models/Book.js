@@ -13,7 +13,7 @@ import sendEmail from '../aws';
 import { subscribe } from '../mailchimp';
 
 import generateSlug from '../utils/slugify';
-import logger from '../logs';
+// import logger from '../logs';
 
 const ROOT_URL = getRootUrl();
 
@@ -157,7 +157,7 @@ class BookClass {
         await Chapter.syncContent({ book, data });
         logger.info('Content is synced', { path: f.path });
       } catch (error) {
-        logger.error('Content sync has error', { path: f.path, error });
+        console.log('Content sync has error', { path: f.path, error });
       }
     }));
 
@@ -202,13 +202,13 @@ class BookClass {
         body: template.message,
       });
     } catch (error) {
-      logger.error('Email sending error:', error);
+      console.log('Email sending error:', error);
     }
 
     try {
       await subscribe({ email: user.email });
     } catch (error) {
-      logger.error('Mailchimp error:', error);
+      console.log('Mailchimp error:', error);
     }
 
     return Purchase.create({

@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-
 import notify from '../../lib/notifier';
 
 import withLayout from '../../lib/withLayout';
@@ -45,6 +44,7 @@ class IndexWithData extends Component {
   async componentDidMount() {
     try {
       const { books } = await getBookList();
+      logger(books); // eslint-disable-line
       this.setState({ books }); // eslint-disable-line
     } catch (err) {
       notify(err);

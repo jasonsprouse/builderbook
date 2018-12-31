@@ -23,6 +23,7 @@
     "email-addresses": "^3.0.2",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
+    "fs": "^0.0.1-security",
     "googleapis": "^34.0.0",
     "handlebars": "^4.0.12",
     "isomorphic-fetch": "^2.2.1",

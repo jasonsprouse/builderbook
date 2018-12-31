@@ -26,6 +26,7 @@ module.exports = {
         enforceForRenamedProperties: false,
       },
     ],
+    "react/destructuring-assignment": [ "always", { "ignoreClassFields": true }],
     'import/prefer-default-export': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
     'react/react-in-jsx-scope': 'off',

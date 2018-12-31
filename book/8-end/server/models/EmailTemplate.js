@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
-import logger from '../logs';
+// import logger from '../logs';
 
 const { Schema } = mongoose;
 
@@ -66,7 +66,7 @@ function insertTemplates() {
     }
 
     EmailTemplate.create(template).catch((error) => {
-      logger.error('EmailTemplate insertion error:', error);
+      console.log('EmailTemplate insertion error:', error);
     });
   });
 }

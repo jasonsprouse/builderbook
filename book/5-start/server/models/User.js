@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import mongoose from 'mongoose';
 
 import _ from 'lodash';
@@ -5,7 +6,7 @@ import _ from 'lodash';
 import generateSlug from '../utils/slugify';
 import sendEmail from '../aws';
 import getEmailTemplate from './EmailTemplate';
-import logger from '../logs';
+// import logger from '../logs';
 
 const { Schema } = mongoose;
 
@@ -56,9 +57,7 @@ class UserClass {
     return ['id', 'displayName', 'email', 'avatarUrl', 'slug', 'isAdmin', 'isGithubConnected'];
   }
 
-  static async signInOrSignUp({
-    googleId, email, googleToken, displayName, avatarUrl,
-  }) {
+  static async signInOrSignUp({ googleId, email, googleToken, displayName, avatarUrl }) {
     const user = await this.findOne({ googleId }).select(UserClass.publicFields().join(' '));
 
     if (user) {
@@ -101,13 +100,13 @@ class UserClass {
 
     try {
       await sendEmail({
-        from: `Kelly from Builder Book <${process.env.EMAIL_SUPPORT_FROM_ADDRESS}>`,
+        from: `Jason from Good Faith <${process.env.EMAIL_SUPPORT_FROM_ADDRESS}>`,
         to: [email],
         subject: template.subject,
         body: template.message,
       });
     } catch (err) {
-      logger.error('Email sending error:', err);
+      console.log('Email sending error:', err);
     }
 
     return _.pick(newUser, UserClass.publicFields());

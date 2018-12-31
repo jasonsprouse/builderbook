@@ -1,7 +1,7 @@
 import express from 'express';
 
 import Book from '../models/Book';
-import logger from '../logs';
+// import logger from '../logs';
 
 const router = express.Router();
 
@@ -28,7 +28,7 @@ router.post('/books/add', async (req, res) => {
     const book = await Book.add(Object.assign({ userId: req.user.id }, req.body));
     res.json(book);
   } catch (err) {
-    logger.error(err);
+    console.log(err);
     res.json({ error: err.message || err.toString() });
   }
 });

@@ -35,7 +35,7 @@ router.post('/books/add', async (req, res) => {
     const book = await Book.add(Object.assign({ userId: req.user.id }, req.body));
     res.json(book);
   } catch (err) {
-    logger.error(err);
+    console.log(err);
     res.json({ error: err.message || err.toString() });
   }
 });
@@ -45,7 +45,7 @@ router.post('/books/edit', async (req, res) => {
     const editedBook = await Book.edit(req.body);
     res.json(editedBook);
   } catch (err) {
-    logger.error(err);
+    console.log(err);
     res.json({ error: err.message || err.toString() });
   }
 });
@@ -136,7 +136,7 @@ router.post('/books/sync-all-chapters', async (req, res) => {
 //     });
 //     res.json({ syncedOneChapter: 1 });
 //   } catch (err) {
-//     logger.error(err);
+//     console.log(err);
 //     res.json({ error: err.message || err.toString() });
 //   }
 // });
@@ -159,7 +159,7 @@ router.post('/books/sync-all-chapters', async (req, res) => {
 //     });
 //     res.json({ syncedAllChapters: 1 });
 //   } catch (err) {
-//     logger.error(err);
+//     console.log(err);
 //     res.json({ error: err.message || err.toString() });
 //   }
 // });
@@ -175,7 +175,7 @@ router.get('/github/repos', async (req, res) => {
     const response = await getRepos({ accessToken: user.githubAccessToken });
     res.json({ repos: response.data });
   } catch (err) {
-    logger.error(err);
+    console.log(err);
     res.json({ error: err.message || err.toString() });
   }
 });
@@ -197,7 +197,7 @@ router.get('/github/repo-files', async (req, res) => {
     const files = mainFolder.data.filter(f => f.type === 'file' && f.path.endsWith('.md'));
     res.json({ files });
   } catch (err) {
-    logger.error(err);
+    console.log(err);
     res.json({ error: err.message || err.toString() });
   }
 });

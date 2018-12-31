@@ -147,7 +147,7 @@ class BookClass {
       await Chapter.syncContent({ book, data });
       logger.info('Content is synced', { path: chapter.githubFilePath });
     } catch (error) {
-      logger.error('Content sync has error', { path: chapter.githubFilePath, error });
+      console.log('Content sync has error', { path: chapter.githubFilePath, error });
     }
   }
 
@@ -204,7 +204,7 @@ class BookClass {
         await Chapter.syncContent({ book, data });
         logger.info('Content is synced', { path: f.path });
       } catch (error) {
-        logger.error('Content sync has error', { path: f.path, error });
+        console.log('Content sync has error', { path: f.path, error });
       }
     }));
 
@@ -250,7 +250,7 @@ class BookClass {
         body: template.message,
       });
     } catch (error) {
-      logger.error('Email sending error:', error);
+      console.log('Email sending error:', error);
     }
 
     try {
@@ -259,7 +259,7 @@ class BookClass {
         listName: 'purchased',
       });
     } catch (error) {
-      logger.error('Mailchimp error:', error);
+      console.log('Mailchimp error:', error);
     }
 
     return Purchase.create({

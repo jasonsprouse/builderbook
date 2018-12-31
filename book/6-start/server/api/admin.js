@@ -1,7 +1,10 @@
 import express from 'express';
 
+import User from '../models/User';
 import Book from '../models/Book';
-import logger from '../logs';
+
+import { getContent, getRepos } from '../github';
+// // import logger from '../logs';
 
 const router = express.Router();
 
@@ -28,15 +31,15 @@ router.post('/books/add', async (req, res) => {
     const book = await Book.add(Object.assign({ userId: req.user.id }, req.body));
     res.json(book);
   } catch (err) {
-    logger.error(err);
+    console.log(err);
     res.json({ error: err.message || err.toString() });
   }
 });
 
 router.post('/books/edit', async (req, res) => {
   try {
-    await Book.edit(req.body);
-    res.json({ done: 1 });
+    const editedBook = await Book.edit(req.body);
+    res.json(editedBook);
   } catch (err) {
     res.json({ error: err.message || err.toString() });
   }
@@ -47,6 +50,42 @@ router.get('/books/detail/:slug', async (req, res) => {
     const book = await Book.getBySlug({ slug: req.params.slug });
     res.json(book);
   } catch (err) {
+    res.json({ error: err.message || err.toString() });
+  }
+});
+
+router.post('/books/sync-content', async (req, res) => {
+  const { bookId } = req.body;
+
+  const user = await User.findById(req.user._id, 'isGithubConnected githubAccessToken');
+
+  if (!user.isGithubConnected || !user.githubAccessToken) {
+    res.json({ error: 'Github not connected' });
+    return;
+  }
+
+  try {
+    await Book.syncContent({ id: bookId, githubAccessToken: user.githubAccessToken });
+    res.json({ done: 1 });
+  } catch (err) {
+    console.log(err);
+    res.json({ error: err.message || err.toString() });
+  }
+});
+
+router.get('/github/repos', async (req, res) => {
+  const user = await User.findById(req.user._id, 'isGithubConnected githubAccessToken');
+
+  if (!user.isGithubConnected || !user.githubAccessToken) {
+    res.json({ error: 'Github is not connected' });
+    return;
+  }
+
+  try {
+    const response = await getRepos({ accessToken: user.githubAccessToken });
+    res.json({ repos: response.data });
+  } catch (err) {
+    console.log(err);
     res.json({ error: err.message || err.toString() });
   }
 });

@@ -4,8 +4,11 @@ import mongoSessionStore from 'connect-mongo';
 import next from 'next';
 import mongoose from 'mongoose';
 
+import bodyParser from 'body-parser';
 import auth from './google';
 import api from './api';
+import routesWithSlug from './routesWithSlug';
+import { setupGithub as github } from './github';
 
 import logger from './logs';
 
@@ -29,6 +32,7 @@ const ROOT_URL = `http://localhost:${port}`;
 
 const URL_MAP = {
   '/login': '/public/login',
+  '/my-books': '/customer/my-books',
 };
 
 const app = next({ dev });
@@ -37,6 +41,7 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
+  server.use(bodyParser.json());
   const MongoStore = mongoSessionStore(session);
   const sess = {
     name: 'builderbook.sid',
@@ -56,7 +61,9 @@ app.prepare().then(() => {
   server.use(session(sess));
 
   auth({ server, ROOT_URL });
+  github({ server });
   api(server);
+  routesWithSlug({ server, app });
 
   server.get('/books/:bookSlug/:chapterSlug', (req, res) => {
     const { bookSlug, chapterSlug } = req.params;
@@ -77,4 +84,3 @@ app.prepare().then(() => {
     logger.info(`> Ready on ${ROOT_URL}`);
   });
 });
-

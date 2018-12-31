@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import auth from './google';
 import api from './api';
 
-import logger from './logs';
+// import logger from './logs';
 
 require('dotenv').config();
 
@@ -39,19 +39,21 @@ app.prepare().then(() => {
 
   const MongoStore = mongoSessionStore(session);
   const sess = {
-    name: 'builderbook.sid',
-    secret: 'HD2w.)q*VqRT4/#NK2M/,E^B)}FED5fWU!dKe[wk',
+    name: 'goodfaith.sid',
+    secret: 'Sun8Shines8',
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
-      ttl: 14 * 24 * 60 * 60, // expires in 14 days
+      ttl: 14 * 24 * 60 * 60, // save session 14 days
     }),
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      maxAge: 14 * 24 * 60 * 60 * 1000, // expires in 14 days
+      maxAge: 14 * 24 * 60 * 60 * 1000,
     },
   };
+
+  
 
   server.use(session(sess));
 

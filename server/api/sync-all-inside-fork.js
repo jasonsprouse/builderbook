@@ -267,7 +267,7 @@ const syncAllChapters = async ({ id, githubAccessToken }) => {
       await syncContent({ book, data });
       logger.info('Content is synced', { path: f.path });
     } catch (error) {
-      logger.error('Content sync has error', { path: f.path, error });
+      console.log('Content sync has error', { path: f.path, error });
     }
   }));
 
@@ -282,8 +282,8 @@ const syncAllChaptersInsideFork = async ({ bookId, userGithubToken }) => {
       githubAccessToken,
     });
   } catch (err) {
-    logger.error(err);
-    logger.error({ error: err.message || err.toString() });
+    console.log(err);
+    console.log({ error: err.message || err.toString() });
   }
 };
 

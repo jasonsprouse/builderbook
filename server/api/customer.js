@@ -65,7 +65,7 @@ router.post('/buy-book', async (req, res) => {
     await Book.buy({ id, stripeToken, user: req.user });
     res.json({ done: 1 });
   } catch (err) {
-    logger.error(err);
+    console.log(err);
     res.json({ error: err.message || err.toString() });
   }
 });

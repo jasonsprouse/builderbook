@@ -47,7 +47,7 @@ export default async function sendRequest(path, opts = {}) {
 
 //   const data = await response.json();
 //   delete sendRequest.pending[path]; // remove request from the pending list
-// eslint-disable-next-line max-len
+//   // eslint-disable-next-line max-len
 //   if (_.isEmpty(sendRequest.pending)) NProgress.done(); // if there are no other pending requests - stop nprogress
 //   if (data.error) {
 //     throw new Error(data.error);

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
-import logger from '../logs';
+// import logger from '../logs';
 
 const { Schema } = mongoose;
 
@@ -57,7 +57,7 @@ export async function insertTemplates() {
     try {
       await EmailTemplate.updateOne({ name: template.name }, template, { upsert: true });
     } catch (error) {
-      logger.error('EmailTemplate insertion error:', error);
+      console.log('EmailTemplate insertion error:', error);
       throw error;
     }
   });
