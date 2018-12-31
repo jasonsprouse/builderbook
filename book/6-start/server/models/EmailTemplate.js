@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
-import logger from '../logs';
+// import logger from '../logs';
 
 const { Schema } = mongoose;
 
@@ -26,17 +26,15 @@ function insertTemplates() {
   const templates = [
     {
       name: 'welcome',
-      subject: 'Welcome to builderbook.org',
+      subject: 'Welcome to goodfaith.church',
       message: `<%= userName %>,
         <p>
-          At Builder Book, we are excited to help you build useful, production-ready web apps from scratch.
+          Thanks for signing up for Good Faith Pardigm!
         </p>
         <p>
-          See list of available books here.
+          In our books, we teach a complete, historical, understanding of our evolution.
         </p>
-
-        Kelly & Timur,
-        Team BB
+         Best Regards, Jason , Good Faith Paradigm 
       `,
     },
   ];
@@ -46,11 +44,9 @@ function insertTemplates() {
       return;
     }
 
-    EmailTemplate
-      .create(template)
-      .catch((error) => {
-        logger.error('EmailTemplate insertion error:', error);
-      });
+    EmailTemplate.create(template).catch((error) => {
+      console.log('EmailTemplate insertion error:', error);
+    });
   });
 }
 

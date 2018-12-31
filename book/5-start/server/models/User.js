@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import mongoose from 'mongoose';
 
 import _ from 'lodash';
@@ -5,7 +6,7 @@ import _ from 'lodash';
 import generateSlug from '../utils/slugify';
 import sendEmail from '../aws';
 import getEmailTemplate from './EmailTemplate';
-import logger from '../logs';
+// import logger from '../logs';
 
 const { Schema } = mongoose;
 
@@ -105,7 +106,7 @@ class UserClass {
         body: template.message,
       });
     } catch (err) {
-      logger.error('Email sending error:', err);
+      console.log('Email sending error:', err);
     }
 
     return _.pick(newUser, UserClass.publicFields());

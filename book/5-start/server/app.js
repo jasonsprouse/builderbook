@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 // import api from './api';
 import auth from './google';
 
-import logger from './logs';
+// import logger from './logs';
 
 require('dotenv').config();
 

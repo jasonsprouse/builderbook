@@ -5,7 +5,7 @@ import generateSlug from '../utils/slugify';
 import Chapter from './Chapter';
 
 import { getCommits, getContent } from '../github';
-import logger from '../logs';
+// import logger from '../logs';
 
 const { Schema } = mongoose;
 
@@ -140,9 +140,9 @@ class BookClass {
 
         try {
           await Chapter.syncContent({ book, data });
-          logger.info('Content is synced', { path: f.path });
+          console.log('Content is synced', { path: f.path });
         } catch (error) {
-          logger.error('Content sync has error', { path: f.path, error });
+          console.log('Content sync has error', { path: f.path, error });
         }
       }),
     );

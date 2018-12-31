@@ -8,7 +8,7 @@ import auth from './google';
 import { setupGithub as github } from './github';
 import api from './api';
 
-import logger from './logs';
+// import logger from './logs';
 import routesWithSlug from './routesWithSlug';
 
 require('dotenv').config();

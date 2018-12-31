@@ -3,7 +3,7 @@ import express from 'express';
 import Book from '../models/Book';
 import { getRepos } from '../github';
 import User from '../models/User';
-import logger from '../logs';
+// import logger from '../logs';
 
 
 const router = express.Router();
@@ -31,7 +31,7 @@ router.post('/books/add', async (req, res) => {
     const book = await Book.add(Object.assign({ userId: req.user.id }, req.body));
     res.json(book);
   } catch (err) {
-    logger.error(err);
+    console.log(err);
     res.json({ error: err.message || err.toString() });
   }
 });
@@ -70,7 +70,7 @@ router.post('/books/sync-content', async (req, res) => {
     await Book.syncContent({ id: bookId, githubAccessToken: user.githubAccessToken });
     res.json({ done: 1 });
   } catch (err) {
-    logger.error(err);
+    console.log(err);
     res.json({ error: err.message || err.toString() });
   }
 });
@@ -87,7 +87,7 @@ router.get('/github/repos', async (req, res) => {
     const response = await getRepos({ accessToken: user.githubAccessToken });
     res.json({ repos: response.data });
   } catch (err) {
-    logger.error(err);
+    console.log(err);
     res.json({ error: err.message || err.toString() });
   }
 });

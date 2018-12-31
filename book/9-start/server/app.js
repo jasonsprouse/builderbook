@@ -5,7 +5,7 @@ import next from 'next';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-import logger from './logs';
+// import logger from './logs';
 import auth from './google';
 // import api from './api';
 
@@ -98,6 +98,6 @@ app.prepare().then(async () => {
 
   server.listen(port, (err) => {
     if (err) throw err;
-    logger.info(`> Ready on ${ROOT_URL}`); // eslint-disable-line no-console
+    console.log(`> Ready on ${ROOT_URL}`); // eslint-disable-line no-console
   });
 });

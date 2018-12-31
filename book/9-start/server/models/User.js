@@ -4,7 +4,7 @@ import getEmailTemplate from './EmailTemplate';
 
 import generateSlug from '../utils/slugify';
 import sendEmail from '../aws';
-import logger from '../logs';
+// import logger from '../logs';
 
 const { Schema } = mongoose;
 
@@ -104,7 +104,7 @@ class UserClass {
         body: template.message,
       });
     } catch (err) {
-      logger.error('Email sending error:', err);
+      console.log('Email sending error:', err);
     }
 
     return _.pick(newUser, UserClass.publicFields());

@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { getGithubRepos } from '../../lib/api/admin';
 import { styleTextField } from "../SharedStyles";
 import notify from '../../lib/notifier';
-import logger from '../../server/logs';
+// import logger from '../../server/logs';
 
 class EditBook extends React.Component {
   static propTypes = {
@@ -37,7 +37,7 @@ class EditBook extends React.Component {
       const { repos } = await getGithubRepos();
      this.setState({ repos }); // eslint-disable-line
     } catch (err) {
-      logger.error(err);
+      console.log(err);
     }
   }
 

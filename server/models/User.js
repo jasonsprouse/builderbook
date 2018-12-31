@@ -127,7 +127,7 @@ class UserClass {
         body: template.message,
       });
     } catch (err) {
-      logger.error('Email sending error:', err);
+      console.log('Email sending error:', err);
     }
     */
 
